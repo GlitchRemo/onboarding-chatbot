@@ -33,13 +33,36 @@
             border-radius: 5px;
         }
         .user-message {
-            background: #007bff;
+            background: #d4021d;
             color: white;
             text-align: right;
         }
         .bot-message {
             background: #e9ecef;
             color: #333;
+            line-height: 1.6;
+        }
+        .bot-message h2 {
+            margin: 0 0 10px 0;
+            color: #d4021d;
+            font-size: 18px;
+        }
+        .bot-message ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .bot-message li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+        .bot-message li:before {
+            content: "•";
+            color: #d4021d;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
         }
         .input-container {
             display: flex;
@@ -52,9 +75,15 @@
             border-radius: 5px;
             font-size: 16px;
         }
+        
+        input[type="text"]:focus {
+        outline: none;
+        border: 2px solid #222222; 
+        }
+
         button {
             padding: 10px 20px;
-            background: #007bff;
+            background: #d4021d;
             color: white;
             border: none;
             border-radius: 5px;
@@ -62,7 +91,7 @@
             font-size: 16px;
         }
         button:hover {
-            background: #0056b3;
+            background: #810515;
         }
         button:disabled {
             background: #ccc;
@@ -90,9 +119,9 @@
         <p class="subtitle">Ask me anything about your onboarding process!</p>
         
         <div class="messages" id="messages">
-            <div class="message bot-message">
-                Hi! I'm your onboarding assistant. I can help you with questions about company policies, benefits, procedures, and more. What would you like to know?
-            </div>
+            <p><strong>Hello Lobster! 👋</strong></p>
+            <p>I'm your onboarding assistant, here to guide you through the project. I can help you understand how to get started, explore workflows, or answer any questions you have along the way.</p>
+            <p>What would you like to learn about today?</p>
         </div>
         
         <div class="input-container">
@@ -139,7 +168,8 @@
                 loadingDiv.remove();
                 
                 if (response.ok) {
-                    addMessage(data.response, 'bot');
+                    // Use formattedResponse for proper line breaks and formatting
+                    addMessage(data.formattedResponse || data.response, 'bot', true);
                 } else {
                     addMessage('Sorry, I encountered an error: ' + data.error, 'bot');
                 }
@@ -152,10 +182,17 @@
             }
         }
 
-        function addMessage(text, type) {
+        function addMessage(text, type, isFormatted = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type.includes('user') ? 'user-message' : 'bot-message'} ${type.includes('loading') ? 'loading' : ''}`;
-            messageDiv.textContent = text;
+            
+            // Use innerHTML for formatted responses, textContent for others
+            if (isFormatted) {
+                messageDiv.innerHTML = text;
+            } else {
+                messageDiv.textContent = text;
+            }
+            
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
             return messageDiv;
