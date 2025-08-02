@@ -78,9 +78,9 @@ rag-onboarding-chatbot/
 ├── package.json          # Dependencies
 ├── .env                  # Configuration
 ├── docs/                 # Documentation files
-│   ├── company-overview.md
-│   ├── onboarding-process.md
-│   └── benefits-and-policies.md
+│   ├── contributing.md
+│   ├── getting-started.md
+│   └── workflows.md
 └── public/
     └── index.html        # Web chat interface
 ```
