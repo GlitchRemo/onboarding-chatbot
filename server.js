@@ -195,6 +195,12 @@ class OnboardingChatbot {
 
     Question: ${query}
 
+     Instructions:
+    - If you encounter any German words or phrases in the question or context, translate them to English before answering.
+    - Do NOT retain any German phrases in the final response — everything must be fully in English.
+    - Proper nouns (e.g., brand or product names like "Lobster") may be preserved, but titles like "Technische Vision" must be translated to their English equivalents only.
+    - The final output should **not** include German words in parentheses.
+
     Format your response as:
     TITLE: [One descriptive title for this topic]
     CONTENT: [Your numbered point answers]
