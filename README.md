@@ -52,7 +52,7 @@ This implementation follows the RAG architecture pattern described in the refere
    ollama pull nomic-embed-text
    
    # Pull the LLM model (for response generation)
-   ollama pull llama2
+   ollama pull gemma2:9b
    
    # Optional: Use other models like mistral, codellama, etc.
    # ollama pull mistral
@@ -112,7 +112,7 @@ PORT=3000
 
 # Model Configuration
 EMBEDDING_MODEL=nomic-embed-text
-LLM_MODEL=llama2
+LLM_MODEL=gemma2:9b
 
 # Vector Store Configuration
 CHUNK_SIZE=1000
@@ -128,6 +128,7 @@ You can use different Ollama models by changing the configuration:
 - `mistral` - Fast and efficient
 - `codellama` - Good for technical content
 - `neural-chat` - Optimized for conversations
+- `gemma2:9b` – Lightweight and powerful, well-suited for RAG applications
 
 **Embedding Models** (for semantic search):
 - `nomic-embed-text` - Recommended for general text
@@ -202,31 +203,6 @@ Enable debug logging by setting:
 ```bash
 NODE_ENV=development npm start
 ```
-
-## 🚀 Production Deployment
-
-For production deployment:
-
-1. **Use a process manager**:
-   ```bash
-   npm install -g pm2
-   pm2 start server.js --name "rag-chatbot"
-   ```
-
-2. **Set up reverse proxy** (nginx example):
-   ```nginx
-   location / {
-       proxy_pass http://localhost:3000;
-       proxy_http_version 1.1;
-       proxy_set_header Upgrade $http_upgrade;
-       proxy_set_header Connection 'upgrade';
-       proxy_set_header Host $host;
-   }
-   ```
-
-3. **Use environment variables** for sensitive configuration
-
-4. **Consider using a persistent vector database** like Chroma or Pinecone for larger deployments
 
 ## 🤝 Contributing
 
